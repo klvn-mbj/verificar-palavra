@@ -24,6 +24,7 @@
         </div>
 
         <ul class="list-group">
+          <h3>{{x}}</h3>
           <div v-for="(item, index) in duplicado" :key="item.id">
             <li class="list-group-item d-flex justify-content-between align-items-center">
               {{duplicado[index]}}
@@ -47,6 +48,7 @@ export default {
     return {
       palavra: '',
       n: '',
+      x: '',
       func: '',
       duplicado: [],
       duplicadoQuant: []
@@ -91,6 +93,8 @@ export default {
         document.getElementById("text").classList.remove('is-valid');
         document.getElementById("text").classList.remove('is-invalid');
         
+        this.x = this.palavra;
+
         if(this.duplicado.length > 0) {
           this.func = 1;
           
@@ -101,6 +105,8 @@ export default {
       } else {
         document.getElementById("text").classList.add('is-invalid');
       }
+
+      
     }
   }
 
