@@ -1,28 +1,116 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    
+    <div class="container body" data-aos="fade-up" data-aos-duration="1000">
+      <div class="jumbotron m-5">
+        <h1>Actividade Nº 1</h1>
+        <p class="lead">Verificador de caracteres repetidos em uma palavra.</p>
+        
+        <hr class="my-4">
+        
+        <div class="form-group">
+          <label for="text">Introduza uma palavra</label>
+          <input v-model="palavra" type="text" class="form-control" id="text" aria-describedby="text" placeholder="Maria, Banana, Telefone...">
+          <small id="emailHelp" class="form-text text-muted">Pode introduzir uma palavra ou uma frase.</small>
+        </div>
+
+        <button @click="verificador()"  type="button" class="btn btn-primary">Verificar</button>
+
+        <hr class="my-4">
+
+        <div v-if="func=='x'" class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+           Não existem caracteres repetidos na palavra <strong>{{n}}</strong>
+        </div>
+
+        <ul class="list-group">
+          <div v-for="(item, index) in duplicado" :key="item.id">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{duplicado[index]}}
+              <span class="badge badge-primary badge-pill">{{duplicadoQuant[index]}}</span>
+            </li>
+          </div>
+        </ul>
+
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+
+  data() {
+    return {
+      palavra: '',
+      n: '',
+      func: '',
+      duplicado: [],
+      duplicadoQuant: []
+    }
+  },
+
+  methods: {
+    verificador() {
+
+      this.func = '',
+      this.duplicado = [];
+      this.duplicadoQuant = [];
+
+      if (this.palavra) {
+
+        var sequencia = this.palavra.split("");
+
+        var charTotal=""; var charActual="";
+
+        for(var i=0; i < sequencia.length; i++){
+
+            charActual=sequencia[i].toLowerCase();
+
+            if(charTotal.includes(charActual) && charActual!=" ") {
+                
+                if(!this.duplicado.includes(charActual)) {
+
+                    this.duplicado.push(charActual);
+                    this.duplicadoQuant.push(1);
+                    
+                } 
+
+                for (var k=0; k < this.duplicado.length; k++){
+                    if(this.duplicado[k]===charActual){
+                        this.duplicadoQuant[k]+=1;
+                    }
+                }
+            }
+            charTotal += charActual;
+        }
+        
+        if(this.duplicado.length > 0) {
+          document.getElementById("text").classList.add('is-valid');
+          this.func = 1;
+        } else { this.n=this.palavra; this.func = 'x'; }
+
+        this.palavra = "";
+      } else {
+        this.func = 'z';
+      }
+    }
   }
+
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+*{
+  font-family: 'Poppins', sans-serif;
 }
+  .body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
