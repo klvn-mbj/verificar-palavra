@@ -89,13 +89,14 @@ export default {
         }
         
         if(this.duplicado.length > 0) {
-          document.getElementById("text").classList.add('is-valid');
           this.func = 1;
-        } else { this.n=this.palavra; this.func = 'x'; }
-
+        } else { this.n=this.palavra; this.func = 'x';}
+        
+        document.getElementById("text").classList.add('is-valid');
         this.palavra = "";
       } else {
         this.func = 'z';
+        document.getElementById("text").classList.add('is-invalid');
       }
     }
   }
