@@ -87,15 +87,18 @@ export default {
             }
             charTotal += charActual;
         }
+
+        document.getElementById("text").classList.remove('is-valid');
+        document.getElementById("text").classList.remove('is-invalid');
         
         if(this.duplicado.length > 0) {
           this.func = 1;
-        } else { this.n=this.palavra; this.func = 'x';}
-        
-        document.getElementById("text").classList.add('is-valid');
+          
+          document.getElementById("text").classList.add('is-valid');
+        } else { this.n=this.palavra; this.func = 'x'; document.getElementById("text").classList.add('is-invalid');}
+
         this.palavra = "";
       } else {
-        this.func = 'z';
         document.getElementById("text").classList.add('is-invalid');
       }
     }
